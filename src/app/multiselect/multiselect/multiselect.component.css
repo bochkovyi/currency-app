@@ -1,0 +1,79 @@
+/* reset CSS*/
+ul {
+    padding-bottom: 0;
+}
+/* reset CSS END*/
+
+.multi-container-wrapper {
+    margin: 20px auto;
+    position: relative;
+}
+
+.multi-options-wrapper {
+    position: relative;
+}
+
+.multi-search-input {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 9998;
+    border: 0px;
+    outline: none;
+}
+
+.multi-options {
+    position: absolute;
+    box-sizing: border-box;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    border: solid black 1px;
+    background: white;
+}
+
+.multi-select-options {
+    width: 100%;
+    padding-left: 10px;
+    padding-right: 160px;
+    min-height: 36px;
+    line-height: 36px;
+    cursor: pointer;
+    box-sizing: border-box;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    border: solid black 1px;
+    outline: 0;
+    border-radius: 4px;
+}
+
+.multi-item {
+    padding: 10px 20px;
+    margin-top: 5px;
+    cursor: pointer;
+}
+
+.multi-item:hover {
+    background-color: #5897fb;
+    color: white;
+}
+
+.item-selected {
+    background-color: #dadada;
+}
+
+.mini-items {
+    background-color: #dadada;
+    border-radius: 4px;
+    padding: 5px;
+    margin-right: 5px;
+}
+
+.multi-max-selected {
+    padding: 10px 20px;
+    display: block;
+}

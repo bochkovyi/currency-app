@@ -1,0 +1,10 @@
+mat-toolbar-row {
+    justify-content: space-between;
+    font-family: 'Raleway', sans-serif;
+    font-weight: bold;
+    font-size: 1.95rem;
+  }
+
+  mat-toolbar {
+    margin-bottom: 20px;
+  }

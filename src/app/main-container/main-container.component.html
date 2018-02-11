@@ -1,0 +1,29 @@
+<img class="hero-image" [src]="heroImage" />
+<article class="main-story">
+  <h2>Hello people.</h2>
+  <p>Here is some Crypro currency. Surprised?
+  <br/>Join the hype wave!
+  <br/>Here you can choose some crypto tokens and deside what to do with them!
+  <br/>Super cool!
+  <br/>And also you can make use of the Super Multiselect Component!
+  <br/>Actually, that's the main usage of this site:)
+  <br/>I am sure you need some Dogecoins!
+
+  <h1>Select Crypto Currencies to work with</h1>
+  <app-multiselect [maxOptions]="3" [options]="currencyItems" placeholder="Please select your crypto bucket" (selectionMade)="currenciesSelected($event)"></app-multiselect>
+
+  <h1>Select actions to perform on crypto currencies</h1>
+  <app-multiselect [maxOptions]="2" [options]="actionsItems" placeholder="Choose actions to perform!" (selectionMade)="actionsSelected($event)"></app-multiselect>
+
+  <button mat-raised-button color="primary" [disabled]="!readyToAct" (click)="performAction()">
+      Perform Action
+  </button>
+
+  <button mat-raised-button color="accent" (click)="startOver()">
+      Start over
+  </button>
+
+  <p class="no-spacer">Hope you had great time!
+  <br/>Please enjoy this amazing multiselect component and create one similar if you like!
+  <br/>Create some good stuff!
+</article>
