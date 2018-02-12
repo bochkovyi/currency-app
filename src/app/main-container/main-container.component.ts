@@ -40,14 +40,20 @@ export class MainContainerComponent implements OnInit {
 
     let temp = selected.map((item: CryptoItem) => `${item.name} (${item.price_usd} USD)`);
     let currencies = temp.join(', ');
-
     let msg = `You are performing ${actions} with ${currencies}. Good game!`;
-
-    // Change image
-    this.heroImage = msg.indexOf('Doge') !== -1 ? this.dogeImg : this.pepeImg;
-
     let dismissMsg = "Big Miner!";
     this.snackBar.open(msg, dismissMsg, { duration: 10000 });
+
+    // Just for fun
+    this.heroImage = msg.indexOf('Doge') !== -1 ? this.dogeImg : this.pepeImg;
+    this.selectedActions.map((item: MultiSelectItem) => {
+      if (item.label === 'Divide by zero') {
+        window.document.body.innerHTML = `
+          <div style="position: fixed; width: 100%; height: 100%; background: blue; color: white; z-index: 9999; display: flex; align-items: center; justify-content: center;">
+            <p style="font-size: 3rem">You divided by zero. Congratulations.</p>
+          </div>`;
+      }
+    });
   }
   
   private setCryptoData(data: CryptoItem[]) {
