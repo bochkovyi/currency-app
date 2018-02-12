@@ -33,6 +33,7 @@ export class MultiselectComponent implements OnInit, OnChanges, ControlValueAcce
   public selectedItems: SelectItem[] = [];
   public searchInput: string = '';
   private onChange: any;
+  private onTouch: any;
 
   constructor( ) {}
 
@@ -62,12 +63,15 @@ export class MultiselectComponent implements OnInit, OnChanges, ControlValueAcce
   }
 
   // Implementing ControlValueAccessor
-  registerOnTouched(_fn: any): void {
-    // TODO
+  registerOnTouched( fn: any): void {
+    this.onTouch = fn;
+  }
+
+  setDisabledState( isDisabled : boolean ) : void {
+    console.log('Multisilect disabled: ', isDisabled);
   }
 
   public hasFocus(value: boolean) {
-    console.log(JSON.stringify(this.selectedItems));
       this.showSelectList = value;
       this.searchInput = '';
   }
@@ -79,6 +83,10 @@ export class MultiselectComponent implements OnInit, OnChanges, ControlValueAcce
     
     if (this.onChange) {
       this.onChange(this.selectedItems);
+    }
+
+    if (this.onTouch) {
+      this.onTouch(true);
     }
     this.selectionMade.emit(this.selectedItems);
   }

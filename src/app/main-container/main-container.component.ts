@@ -55,14 +55,18 @@ export class MainContainerComponent implements OnInit {
     this.currencyItems = this.currencyData.map((item: CryptoItem) => ({label: item.name, value: item.id}));
   }
 
-  public startOver() {
+  public startOver(templateForm) {
     this.cryptoForm.controls['selectedCurrencies'].setValue([]);
     this.selectedActions = [];
     this.heroImage = this.pepeImg;
+
+    templateForm.reset();
+    this.cryptoForm.reset();
+
   }
 
   public log(data: any) {
-    console.log(data);
+    console.log(JSON.stringify(data, null, 2));
   }
 
   ngOnInit() {

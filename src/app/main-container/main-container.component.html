@@ -12,19 +12,19 @@
     <!-- Reactive from -->
     <h1>Select Crypto Currencies to work with</h1>
     <form novalidate [formGroup]="cryptoForm">
-        <app-multiselect [maxOptions]="3" [options]="currencyItems" placeholder="Please select your crypto bucket" formControlName="selectedCurrencies"></app-multiselect>
+        <app-multiselect required [maxOptions]="3" [options]="currencyItems" placeholder="Please select your crypto bucket" formControlName="selectedCurrencies"></app-multiselect>
     </form>
     <!-- Template-driven form -->
     <h1>Select actions to perform on crypto currencies</h1>
-    <form #templateForm novalidate>
-        <app-multiselect name="templateMultiselect" [maxOptions]="2" [options]="actionsItems" placeholder="Choose actions to perform!" [(ngModel)]="selectedActions"></app-multiselect>
+    <form #templateForm="ngForm" novalidate>
+        <app-multiselect required name="templateMultiselect" [maxOptions]="2" [options]="actionsItems" placeholder="Choose actions to perform!" [(ngModel)]="selectedActions"></app-multiselect>
     </form>
 
-    <button mat-raised-button color="primary" (click)="performAction()">
+    <button mat-raised-button color="primary" [disabled]="!templateForm.form.valid || !cryptoForm.valid" (click)="performAction()">
         Perform Action
     </button>
 
-    <button mat-raised-button color="accent" (click)="startOver()">
+    <button mat-raised-button color="accent" (click)="startOver(templateForm)">
         Start over
     </button>
 
