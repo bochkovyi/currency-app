@@ -1,29 +1,40 @@
 <img class="hero-image" [src]="heroImage" />
 <article class="main-story">
-  <h2>Hello people.</h2>
-  <p>Here is some Crypro currency. Surprised?
-  <br/>Join the hype wave!
-  <br/>Here you can choose some crypto tokens and deside what to do with them!
-  <br/>Super cool!
-  <br/>And also you can make use of the Super Multiselect Component!
-  <br/>Actually, that's the main usage of this site:)
-  <br/>I am sure you need some Dogecoins!
+    <h2>Hello people.</h2>
+    <p>Here is some Crypro currency. Surprised?
+        <br/>Join the hype wave!
+        <br/>Here you can choose some crypto tokens and deside what to do with them!
+        <br/>Super cool!
+        <br/>And also you can make use of the Super Multiselect Component!
+        <br/>Actually, that's the main usage of this site:)
+        <br/>I am sure you need some Dogecoins!
+    </p>
+    <!-- Reactive from -->
+    <h1>Select Crypto Currencies to work with</h1>
+    <form novalidate [formGroup]="cryptoForm">
+        <app-multiselect [maxOptions]="3" [options]="currencyItems" placeholder="Please select your crypto bucket" formControlName="selectedCurrencies"></app-multiselect>
+    </form>
+    <!-- Template-driven form -->
+    <h1>Select actions to perform on crypto currencies</h1>
+    <form #templateForm novalidate>
+        <app-multiselect name="templateMultiselect" [maxOptions]="2" [options]="actionsItems" placeholder="Choose actions to perform!" [(ngModel)]="selectedActions"></app-multiselect>
+    </form>
 
-  <h1>Select Crypto Currencies to work with</h1>
-  <app-multiselect [maxOptions]="3" [options]="currencyItems" placeholder="Please select your crypto bucket" (selectionMade)="currenciesSelected($event)"></app-multiselect>
+    <button mat-raised-button color="primary" (click)="performAction()">
+        Perform Action
+    </button>
 
-  <h1>Select actions to perform on crypto currencies</h1>
-  <app-multiselect [maxOptions]="2" [options]="actionsItems" placeholder="Choose actions to perform!" (selectionMade)="actionsSelected($event)"></app-multiselect>
+    <button mat-raised-button color="accent" (click)="startOver()">
+        Start over
+    </button>
 
-  <button mat-raised-button color="primary" [disabled]="!readyToAct" (click)="performAction()">
-      Perform Action
-  </button>
+    <!-- Event Emitter approach -->
+    <h1>Testing component. Open console to see the output.</h1>
+    <app-multiselect [maxOptions]="8" [options]="currencyItems" placeholder="Select and test" (selectionMade)="log($event)"></app-multiselect>
 
-  <button mat-raised-button color="accent" (click)="startOver()">
-      Start over
-  </button>
+    <p class="no-spacer">Hope you had great time!
+        <br/>Please enjoy this amazing multiselect component and create one similar if you like!
+        <br/>Create some good stuff!
+    </p>
 
-  <p class="no-spacer">Hope you had great time!
-  <br/>Please enjoy this amazing multiselect component and create one similar if you like!
-  <br/>Create some good stuff!
 </article>

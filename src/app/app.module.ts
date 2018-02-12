@@ -20,8 +20,8 @@ import { MainContainerComponent } from './main-container/main-container.componen
   imports: [
     BrowserModule,
     HttpClientModule,
-    // FormsModule,
-    // ReactiveFormsModule,
+    FormsModule,
+    ReactiveFormsModule,
     MatToolbarModule,
     FlexLayoutModule,
     MatButtonModule,

@@ -3,20 +3,20 @@
   <input class="multi-search-input" [(ngModel)]="searchInput" (focus)="hasFocus(true)" (blur)="hasFocus(false)" type="text" placeholder="search">
 
   <div class="multi-select-options" tabindex=-1 (click)="hasFocus(true)" (blur)="hasFocus(false)">
-    <span *ngFor="let option of options; index as i">
+    <span *ngFor="let option of componentState; index as i">
       <span class="mini-items" *ngIf="option.selected">
-        <span type="button" (click)="optionClicked(option, i)">x&nbsp;</span>{{option.label}}</span>
+        <span type="button" (click)="onOptionClicked(option, i)">x&nbsp;</span>{{option.label}}</span>
     </span>
-    <span *ngIf="selectedLength === 0">{{placeholder}}</span>
+    <span *ngIf="selectedItems.length === 0">{{placeholder}}</span>
   </div>
 
   <div class="multi-options-wrapper">
     <div *ngIf="showSelectList" class="multi-options">
-      <span class="multi-max-selected" *ngIf="maxOptions && maxOptions <= selectedLength; else mainList">You can select maximum {{maxOptions}} items.</span>
+      <span class="multi-max-selected" *ngIf="maxOptions && maxOptions <= selectedItems.length; else mainList">You can select maximum {{maxOptions}} items.</span>
       <ng-template #mainList>
         <ul>
-          <li class="multi-item" *ngFor="let option of options | multiFilter:searchInput; index as i" [tabindex]="i" [ngClass]="{'item-selected':option.selected}"
-            (mousedown)="optionClicked(option, i)">
+          <li class="multi-item" *ngFor="let option of componentState | multiFilter:searchInput; index as i" [tabindex]="i" [ngClass]="{'item-selected':option.selected}"
+            (mousedown)="onOptionClicked(option, i)">
             {{option.label}}
           </li>
         </ul>

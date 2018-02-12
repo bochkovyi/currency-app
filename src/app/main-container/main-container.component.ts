@@ -3,7 +3,7 @@ import { CryptoService } from '../crypto.service';
 import { CryptoItem } from '../crypto-item';
 import { MatSnackBar } from '@angular/material';
 import { SelectItem as MultiSelectItem } from '../multiselect/common/select-item.multiselect';
-
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-main-container',
@@ -16,8 +16,8 @@ export class MainContainerComponent implements OnInit {
   public currencyItems: MultiSelectItem[];
   public actionsItems: MultiSelectItem[];
 
-  private selectedCurrencies: CryptoItem[];
-  private selectedActions: string[];
+  public cryptoForm: FormGroup;
+  public selectedActions: MultiSelectItem[] = [];
 
   public readyToAct: boolean = false;
   public pepeImg: string = 'assets/images/Pepe.jpg';
@@ -26,28 +26,19 @@ export class MainContainerComponent implements OnInit {
 
   constructor(private cryptoService: CryptoService, public snackBar: MatSnackBar) { }
 
-  public currenciesSelected(items: MultiSelectItem[]) {
+  public performAction() {
+    let actions = this.selectedActions.map((item: MultiSelectItem) => item.label).join(', ');
+
     let selected = [];
-    items.forEach((multyItem: MultiSelectItem) => {
+    this.cryptoForm.value.selectedCurrencies.forEach((multyItem: MultiSelectItem) => {
       this.currencyData.forEach((cryptoItem: CryptoItem) => {
         if (multyItem.value === cryptoItem.id) {
           selected.push(cryptoItem);
         }
       });
     });
-    this.selectedCurrencies = selected;
-    this.setReadyToAct();
-  }
 
-  public actionsSelected(items: MultiSelectItem[]) {
-    this.selectedActions = items.map((item: MultiSelectItem) => item.label);
-    this.setReadyToAct();
-  }
-
-  public performAction() {
-    console.log(this.selectedCurrencies, this.selectedActions);
-    let actions = this.selectedActions.join(', ');
-    let temp = this.selectedCurrencies.map((item: CryptoItem) => `${item.name} (${item.price_usd} USD)`);
+    let temp = selected.map((item: CryptoItem) => `${item.name} (${item.price_usd} USD)`);
     let currencies = temp.join(', ');
 
     let msg = `You are performing ${actions} with ${currencies}. Good game!`;
@@ -58,19 +49,20 @@ export class MainContainerComponent implements OnInit {
     let dismissMsg = "Big Miner!";
     this.snackBar.open(msg, dismissMsg, { duration: 10000 });
   }
-
+  
   private setCryptoData(data: CryptoItem[]) {
     this.currencyData = data;
     this.currencyItems = this.currencyData.map((item: CryptoItem) => ({label: item.name, value: item.id}));
   }
 
   public startOver() {
-
+    this.cryptoForm.controls['selectedCurrencies'].setValue([]);
+    this.selectedActions = [];
+    this.heroImage = this.pepeImg;
   }
 
-  private setReadyToAct() {
-    let isReadyToAct = this.selectedCurrencies && this.selectedActions && this.selectedCurrencies.length > 0 && this.selectedActions.length > 0;
-    this.readyToAct = isReadyToAct ? true : false;
+  public log(data: any) {
+    console.log(data);
   }
 
   ngOnInit() {
@@ -78,6 +70,10 @@ export class MainContainerComponent implements OnInit {
       (data: CryptoItem[]) => this.setCryptoData(data),
       (error: any) => console.error(error)
     );
+
+    this.cryptoForm = new FormGroup({
+      selectedCurrencies: new FormControl([])
+    });
 
     this.actionsItems = ['Buy', 'Sell', 'Multiply by zero', 'Divide by zero'].map(item => ({label: item, value: item}));
   }
