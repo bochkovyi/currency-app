@@ -76,15 +76,13 @@ export class MultiselectComponent implements OnInit, OnChanges, ControlValueAcce
       this.searchInput = '';
   }
 
-  public onOptionClicked(option: SelectItem, index: number) {
+  public onOptionClicked(option: SelectItem) {
     option.selected = option.selected ? false : true;
     this.countSelectedItems();
     // Emit the results to parent component
-    
     if (this.onChange) {
       this.onChange(this.selectedItems);
     }
-
     if (this.onTouch) {
       this.onTouch(true);
     }
